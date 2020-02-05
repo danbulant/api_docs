@@ -1,0 +1,4 @@
+<h1 id='libraries'>Libraries</h1><h2 id='js'>JS</h2>
+<p><em>Currently unavailable, but planned.</em>
+This library simplifies usage. It uses <code>got</code> under the hood for simplified request handling, and always returns promise.
+Responses are just parsed JSON (as of now, but classes may be implemented in future).</p>

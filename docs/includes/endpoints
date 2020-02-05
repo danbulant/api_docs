@@ -1,0 +1,7 @@
+<h1 id='endpoints'>Endpoints</h1><h2 id='bakalari'>Bakalari</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.danbulant.eu/v1/bakalari/rozvrh/user/domain.tld/SecretPassword123"</span>
+</code></pre>
+<p>Tries getting the info from Bakalari API.</p>

@@ -1,0 +1,288 @@
+<h1 id='response-format'>Response format</h1><h2 id='fields'>Fields</h2>
+<p>Response is currently always in JSON (but we might support XML and JSONP if there will be someone who might use it). Response always has these fields:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+<th>example content</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>code</td>
+<td>Contains the HTTP code</td>
+<td><code>200</code></td>
+</tr>
+<tr>
+<td>message</td>
+<td>A string containing sample message.</td>
+<td><code>Success, see type.</code></td>
+</tr>
+<tr>
+<td>type</td>
+<td>A string with the type of returned data</td>
+<td><code>ping_response</code></td>
+</tr>
+</tbody></table>
+
+<p>Response may have additional fields, such as <code>url</code> or <code>data</code>. These depends on the type.</p>
+<h2 id='types'>Types</h2>
+<p>Types that start with <code>e_</code> are <em>always</em> errors. The following type can be retrieved:</p>
+<h3 id='e_invalid_key-key-only-endpoints'><code>e_invalid_key</code> | Key-only endpoints</h3>
+<p>The key given is invalid and cannot be used.</p>
+<h3 id='e_missing_query'><code>e_missing_query</code> | *</h3>
+<p>Request lacks GET query string, which is required by the endpoint.</p>
+<h3 id='e_invalid_query'><code>e_invalid_query</code> | *</h3>
+<p>Request has invalid fields/missing fields/invalid values. See <code>message</code> in the response for more information.</p>
+<h3 id='e_empty_response'><code>e_empty_response</code> | *</h3>
+<p>Request succeeded, but the response provided by the endpoint was empty.</p>
+<h3 id='e_cannot_get'><code>e_cannot_get</code> | *</h3>
+<p>Request failed while trying to fetch external data.</p>
+<h3 id='e_generic'><code>e_generic</code> | *</h3>
+<p>Unknown error.</p>
+<h3 id='e_ester_error-ester'><code>e_ester_error</code>  | Ester</h3>
+<p>An error occured inside Ester API. See <code>data</code> field (contains response from Ester API).</p>
+<h3 id='e_bakalari_missing_school-bakalari'><code>e_bakalari_missing_school</code> | Bakalari</h3>
+<p>Error occured during fetching data from the given domain, which usually means the schoold doesn&#39;t exists or has private API (currently no known school has private API).</p>
+<h3 id='e_bakalari_missing_user-bakalari'><code>e_bakalari_missing_user</code> | Bakalari</h3>
+<p>Request to school succeeded, but the user doesn&#39;t exists.</p>
+<h3 id='e_missing_subreddit-reddit'><code>e_missing_subreddit</code> | Reddit</h3>
+<p>Couldn&#39;t fetch subreddit. Subreddit may be NSFW (which are currently unsupported) or private or just simply doesn&#39;t exists.</p>
+<h3 id='e_reddit_failed-reddit'><code>e_reddit_failed</code> | Reddit</h3>
+<p>Reddit returned invalid response and/or error response.</p>
+<h3 id='e_neko_type-nekos'><code>e_neko_type</code> | Nekos</h3>
+<p>Unknown neko type.</p>
+
+<hr>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success, nothing to do"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generic"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='generic'><code>generic</code> | *</h3>
+<p>A response containing only the default 3 fields.</p>
+
+<p><br>
+<br>
+<br>
+<br></p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success, see types"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"neko_list"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="p">]</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='neko_list-nekos'><code>neko_list</code> | Nekos</h3>
+<p>List of available <code>neko</code> endpoints.</p>
+
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ICe API in development, see later"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ice_response"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='ice_response-ice'><code>ice_response</code> | Ice</h3>
+<p>A generic bot response.</p>
+
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+</span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ice_http_code_response"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"http"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"standart"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Standard response for successful HTTP requests. The actual response will depend on the request method used.  In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request, the response will contain an entity describing or containing the result of the action."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"choices"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="s2">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Wikipedia"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='ice_http_code_response-http'><code>ice_http_code_response</code> | Http</h3>
+<p>A response containing information about given http code.</p>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br></p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing parameter code. Use it as /http/:code"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e_ice_http_missing_code"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='ice_http_code_list-ice'><code>ice_http_code_list</code> | Ice</h3>
+<p>A <em>planned</em> response to list all available HTTP codes.</p>
+
+<p><br>
+<br>
+<br>
+<br></p>
+<h3 id='pushr_response-pushr'><code>pushr_response</code> | Pushr</h3>
+<p>A response from Pushr API (danbulant.eu API acts as pass-through for this).</p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success, see reddit"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reddit_response"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"reddit"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I really ininterested"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://imgur.com/tLBzS1h.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nickjayr"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"authorIcon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.redditstatic.com/avatars/avatar_default_17_0DD3BB.png"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://reddit.com/r/memes/comments/ey2hkb/i_really_ininterested/"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='redddit_response-reddit'><code>redddit_response</code> | Reddit</h3>
+<p>Response from reddit API containing <code>reddit</code> object.</p>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br></p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success, see response"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ester_response"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Čau!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Daniel"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Čau!"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='ester_response-ester'><code>ester_response</code> | Ester</h3>
+<p>A generic response from Ester API.</p>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br></p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bakalari_response"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"verze"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17/18.20191219"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"jmeno"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[NAME HIDDEN]"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"R"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"strtyp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rodič"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"skola"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[SCHOOL REDACTED]"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"typskoly"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"trida"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rocnik"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"moduly"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*znamky*predvidac*rozvrh*predmety*vyuka*ukoly*akce*suplovani*absence*pololetni*prijate*odeslane*nastenka*setread*setok*komsend*komenslisty*komdel*"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"newmarkdays"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='bakalari_response-bakalari'><code>bakalari_response</code> | Bakalari</h3>
+<p>Response from the <code>bakalari</code> API. Format depends on the bakalari response (e.g., try the desired info in browser to see, as danbulant.eu only converts xml to json).</p>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br></p>
+
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Success, see url"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"image"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://i.imgur.com/wVUpmao.jpg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='image'><code>image</code> | *</h3>
+<p>Generic image response. The actual image is on adress inside the provided <code>url</code> field.</p>
+
+<p><br>
+<br>
+<br>
+<br>
+<br></p>
