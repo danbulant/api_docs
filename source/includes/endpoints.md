@@ -1,5 +1,6 @@
 # Endpoints
 
+All endpoints can be found on [https://api.danbulant.eu/v1/](https://api.danbulant.eu/v1/)
 ## Bakalari
 
 > Example request
